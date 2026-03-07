@@ -5,8 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>AX 챌린지 2026 — Signal Compass 기획서</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap');
-
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
@@ -30,39 +28,51 @@
     }
 
     body {
-      font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-family: 'Noto Sans CJK KR', 'Noto Color Emoji', sans-serif;
       background: var(--bg);
       color: var(--text);
-      font-size: 15px;
-      line-height: 1.7;
+      font-size: 13px;
+      line-height: 1.6;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
     }
 
-    .layout { display: flex; min-height: 100vh; }
-
-
-
-    /* ── Main ── */
-    .main { flex: 1; max-width: 860px; margin: 0 auto; padding: 60px 80px 120px; }
+    .main {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 40px 60px 80px;
+    }
 
     /* ── Cover ── */
-    .cover-emoji { font-size: 72px; margin-bottom: 16px; }
-    .page-title { font-size: 38px; font-weight: 700; line-height: 1.2; margin-bottom: 8px; }
-    .page-subtitle { font-size: 15px; color: var(--text-light); margin-bottom: 32px; }
+    .cover-emoji { font-size: 56px; margin-bottom: 12px; }
+    .page-title  { font-size: 30px; font-weight: 700; line-height: 1.25; margin-bottom: 6px; }
+    .page-subtitle { font-size: 13px; color: var(--text-light); margin-bottom: 28px; }
 
     /* ── Properties ── */
     .properties {
-      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
-      padding: 12px 0; margin-bottom: 40px;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 10px 0;
+      margin-bottom: 32px;
+      break-inside: avoid;
+      page-break-inside: avoid;
     }
-    .prop-row { display: flex; align-items: flex-start; padding: 4px 0; }
+    .prop-row { display: flex; align-items: flex-start; padding: 3px 0; }
     .prop-key {
-      width: 160px; flex-shrink: 0; font-size: 13px; color: var(--text-faint);
-      display: flex; align-items: center; gap: 6px; padding: 2px 0;
+      width: 150px; flex-shrink: 0; font-size: 12px;
+      color: var(--text-faint); display: flex; align-items: center; gap: 5px; padding: 2px 0;
     }
-    .prop-val { flex: 1; font-size: 13px; color: var(--text); display: flex; align-items: center; flex-wrap: wrap; gap: 6px; }
+    .prop-val {
+      flex: 1; font-size: 12px; color: var(--text);
+      display: flex; align-items: center; flex-wrap: wrap; gap: 5px;
+    }
 
     /* ── Tags ── */
-    .tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 12px; font-weight: 500; }
+    .tag {
+      display: inline-block; padding: 1px 7px;
+      border-radius: 4px; font-size: 11px; font-weight: 500;
+      white-space: nowrap;
+    }
     .tag-blue   { background: var(--tag-blue);   color: #1d4ed8; }
     .tag-green  { background: var(--tag-green);  color: #15803d; }
     .tag-purple { background: var(--tag-purple); color: #7c3aed; }
@@ -70,18 +80,40 @@
     .tag-red    { background: var(--tag-red);    color: #dc2626; }
     .tag-gray   { background: var(--tag-gray);   color: #475569; }
 
-    hr { border: none; border-top: 1px solid var(--border); margin: 32px 0; }
+    hr { border: none; border-top: 1px solid var(--border); margin: 24px 0; }
 
     /* ── Headings ── */
-    h1 { font-size: 28px; font-weight: 700; margin: 40px 0 12px; }
-    h2 { font-size: 20px; font-weight: 600; margin: 32px 0 10px; }
-    h3 { font-size: 16px; font-weight: 600; margin: 24px 0 8px; }
-    p  { margin-bottom: 10px; }
+    h1 {
+      font-size: 22px; font-weight: 700; margin: 32px 0 10px;
+      break-after: avoid; page-break-after: avoid;
+    }
+    h2 {
+      font-size: 16px; font-weight: 600; margin: 24px 0 8px;
+      break-after: avoid; page-break-after: avoid;
+    }
+    h3 {
+      font-size: 14px; font-weight: 600; margin: 18px 0 6px;
+      break-after: avoid; page-break-after: avoid;
+    }
+    p { margin-bottom: 8px; }
+
+    /* 제목 바로 다음 요소는 분리 금지 */
+    h1 + *, h2 + *, h3 + * {
+      break-before: avoid;
+      page-break-before: avoid;
+    }
+
+    /* ── Section wrapper: 제목+내용 묶음 ── */
+    .section-block {
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
 
     /* ── Callout ── */
     .callout {
-      display: flex; gap: 12px; border-radius: 6px;
-      padding: 14px 16px; margin: 16px 0;
+      display: flex; gap: 10px; border-radius: 6px;
+      padding: 12px 14px; margin: 12px 0;
+      break-inside: avoid; page-break-inside: avoid;
     }
     .callout.yellow { background: var(--highlight-yellow); }
     .callout.blue   { background: var(--highlight-blue); }
@@ -89,184 +121,250 @@
     .callout.purple { background: var(--highlight-purple); }
     .callout.red    { background: var(--highlight-red); }
     .callout.gray   { background: var(--sidebar-bg); }
-    .callout-icon { font-size: 18px; flex-shrink: 0; line-height: 1.5; }
-    .callout-text { font-size: 14px; line-height: 1.6; }
+    .callout-icon { font-size: 16px; flex-shrink: 0; line-height: 1.5; }
+    .callout-text { font-size: 12.5px; line-height: 1.6; }
     .callout-text strong { font-weight: 600; }
 
     /* ── Lists ── */
-    ul.notion-list { padding-left: 0; list-style: none; margin: 8px 0; }
-    ul.notion-list li { padding: 3px 0 3px 20px; position: relative; font-size: 14px; line-height: 1.6; }
+    ul.notion-list { padding-left: 0; list-style: none; margin: 6px 0; }
+    ul.notion-list li {
+      padding: 2px 0 2px 18px; position: relative;
+      font-size: 12.5px; line-height: 1.55;
+    }
     ul.notion-list li::before { content: '•'; position: absolute; left: 4px; color: var(--text-faint); }
     ul.notion-list li.check::before { content: '✓'; color: #15803d; font-weight: 700; }
-    ul.notion-list li.done::before  { content: '✅'; font-size: 12px; }
-    ol.notion-list { padding-left: 20px; margin: 8px 0; }
-    ol.notion-list li { padding: 3px 0; font-size: 14px; line-height: 1.6; }
+    ul.notion-list li.done::before  { content: '✅'; font-size: 11px; }
+    ol.notion-list { padding-left: 18px; margin: 6px 0; }
+    ol.notion-list li { padding: 2px 0; font-size: 12.5px; line-height: 1.55; }
 
     /* ── Table ── */
-    .notion-table-wrap { overflow-x: auto; margin: 16px 0; }
-    table.notion-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
-    table.notion-table th {
-      background: var(--sidebar-bg); font-weight: 600; text-align: left;
-      padding: 8px 12px; border: 1px solid var(--border); color: var(--text-light); font-size: 12px;
+    .notion-table-wrap {
+      overflow-x: visible;
+      margin: 12px 0;
+      break-inside: avoid;
+      page-break-inside: avoid;
     }
-    table.notion-table td { padding: 8px 12px; border: 1px solid var(--border); vertical-align: top; line-height: 1.5; }
-    table.notion-table tr:hover td { background: var(--sidebar-bg); }
+    table.notion-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 11.5px;
+      table-layout: fixed;   /* 고정 레이아웃으로 셀 너비 제어 */
+    }
+    table.notion-table th {
+      background: var(--sidebar-bg);
+      font-weight: 600;
+      text-align: left;
+      padding: 7px 10px;
+      border: 1px solid var(--border);
+      color: var(--text-light);
+      font-size: 11px;
+      word-break: keep-all;   /* 한글 단어 단위 줄바꿈 */
+      white-space: normal;
+    }
+    table.notion-table td {
+      padding: 7px 10px;
+      border: 1px solid var(--border);
+      vertical-align: top;
+      line-height: 1.5;
+      word-break: keep-all;   /* 한글 단어 단위 줄바꿈 */
+      word-wrap: break-word;
+      white-space: normal;
+    }
+    table.notion-table tr {
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+
+    /* ── 목표 테이블 컬럼 너비 ── */
+    .table-goal th:nth-child(1), .table-goal td:nth-child(1) { width: 12%; }
+    .table-goal th:nth-child(2), .table-goal td:nth-child(2) { width: 48%; }
+    .table-goal th:nth-child(3), .table-goal td:nth-child(3) { width: 40%; }
+
+    /* ── 타겟 테이블 ── */
+    .table-target th:nth-child(1), .table-target td:nth-child(1) { width: 18%; }
+    .table-target th:nth-child(2), .table-target td:nth-child(2) { width: 22%; }
+    .table-target th:nth-child(3), .table-target td:nth-child(3) { width: 35%; }
+    .table-target th:nth-child(4), .table-target td:nth-child(4) { width: 25%; }
+
+    /* ── 아키텍처 레이어 테이블 ── */
+    .table-arch th:nth-child(1), .table-arch td:nth-child(1) { width: 15%; }
+    .table-arch th:nth-child(2), .table-arch td:nth-child(2) { width: 30%; }
+    .table-arch th:nth-child(3), .table-arch td:nth-child(3) { width: 55%; }
+
+    /* ── n8n 워크플로우 테이블 ── */
+    .table-workflow th:nth-child(1), .table-workflow td:nth-child(1) { width: 28%; }
+    .table-workflow th:nth-child(2), .table-workflow td:nth-child(2) { width: 28%; }
+    .table-workflow th:nth-child(3), .table-workflow td:nth-child(3) { width: 44%; }
+
+    /* ── 기술스택 테이블 ── */
+    .table-stack th:nth-child(1), .table-stack td:nth-child(1) { width: 14%; }
+    .table-stack th:nth-child(2), .table-stack td:nth-child(2) { width: 38%; }
+    .table-stack th:nth-child(3), .table-stack td:nth-child(3) { width: 14%; }
+    .table-stack th:nth-child(4), .table-stack td:nth-child(4) { width: 34%; }
+
+    /* ── 일정 테이블 ── */
+    .table-schedule th:nth-child(1), .table-schedule td:nth-child(1) { width: 12%; }
+    .table-schedule th:nth-child(2), .table-schedule td:nth-child(2) { width: 16%; }
+    .table-schedule th:nth-child(3), .table-schedule td:nth-child(3) { width: 16%; }
+    .table-schedule th:nth-child(4), .table-schedule td:nth-child(4) { width: 42%; }
+    .table-schedule th:nth-child(5), .table-schedule td:nth-child(5) { width: 14%; }
+
+    /* ── 역할 테이블 ── */
+    .table-role th:nth-child(1), .table-role td:nth-child(1) { width: 18%; }
+    .table-role th:nth-child(2), .table-role td:nth-child(2) { width: 22%; }
+    .table-role th:nth-child(3), .table-role td:nth-child(3) { width: 60%; }
 
     /* ── Phase cards ── */
-    .phase-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px,1fr)); gap: 12px; margin: 16px 0; }
-    .phase-card { border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; }
-    .phase-card-title { font-weight: 600; font-size: 13px; margin-bottom: 2px; }
-    .phase-card-date  { font-size: 11px; color: var(--text-faint); margin-bottom: 8px; }
+    .phase-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin: 12px 0;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    .phase-card {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 14px;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    .phase-card-title { font-weight: 600; font-size: 12px; margin-bottom: 2px; }
+    .phase-card-date  { font-size: 10.5px; color: var(--text-faint); margin-bottom: 6px; }
 
     /* ── Score cards ── */
-    .score-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 10px; margin: 16px 0; }
-    .score-card { border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; }
-    .score-card-title { font-size: 12px; color: var(--text-faint); margin-bottom: 4px; }
-    .score-card-val   { font-size: 24px; font-weight: 700; }
-    .score-card-sub   { font-size: 11px; color: var(--text-faint); margin-top: 2px; line-height: 1.4; }
+    .score-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin: 12px 0;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    .score-card {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 14px;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    .score-card-title { font-size: 11px; color: var(--text-faint); margin-bottom: 4px; }
+    .score-card-val   { font-size: 22px; font-weight: 700; }
+    .score-card-sub   { font-size: 11px; color: var(--text-light); margin-top: 4px; line-height: 1.45; }
 
     /* ── Flow box ── */
     .flow {
-      background: var(--sidebar-bg); border-radius: 8px;
-      padding: 20px 24px; font-family: monospace; font-size: 14px;
-      line-height: 2; margin: 16px 0;
+      background: var(--sidebar-bg);
+      border-radius: 8px;
+      padding: 16px 20px;
+      font-family: 'Noto Sans KR', monospace;
+      font-size: 12.5px;
+      line-height: 2;
+      margin: 12px 0;
+      break-inside: avoid;
+      page-break-inside: avoid;
     }
 
     /* ── Stack pills ── */
-    .stack-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
+    .stack-row { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0; }
     .stack-pill {
-      display: flex; align-items: center; gap: 6px;
-      background: var(--sidebar-bg); border: 1px solid var(--border);
-      border-radius: 20px; padding: 4px 12px; font-size: 12.5px; font-weight: 500;
+      display: flex; align-items: center; gap: 5px;
+      background: var(--sidebar-bg);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 3px 10px;
+      font-size: 11.5px;
+      font-weight: 500;
+      white-space: nowrap;
     }
 
     /* ── Input highlight ── */
     .input-box {
-      background: #fffbeb; border-left: 3px solid #f59e0b;
-      padding: 10px 14px; border-radius: 0 6px 6px 0;
-      margin: 8px 0; font-size: 13.5px; line-height: 1.6;
+      background: #fffbeb;
+      border-left: 3px solid #f59e0b;
+      padding: 8px 12px;
+      border-radius: 0 6px 6px 0;
+      margin: 6px 0;
+      font-size: 12px;
+      line-height: 1.6;
+      break-inside: avoid;
+      page-break-inside: avoid;
     }
 
     /* ── Example box ── */
     .example-box {
-      background: var(--sidebar-bg); border-radius: 6px;
-      padding: 12px 16px; margin: 10px 0; font-size: 13.5px; line-height: 1.7;
+      background: var(--sidebar-bg);
+      border-radius: 6px;
+      padding: 10px 14px;
+      margin: 8px 0;
+      font-size: 12px;
+      line-height: 1.6;
+      break-inside: avoid;
+      page-break-inside: avoid;
     }
-    .example-box .ex-title { font-weight: 600; margin-bottom: 6px; font-size: 13px; }
+    .example-box .ex-title { font-weight: 600; margin-bottom: 5px; font-size: 12px; }
 
-    code { background: rgba(135,131,120,.15); border-radius: 3px; padding: 1px 5px; font-size: 13px; font-family: 'SFMono-Regular', Consolas, monospace; }
+    code {
+      background: rgba(135,131,120,.15);
+      border-radius: 3px;
+      padding: 1px 4px;
+      font-size: 11.5px;
+      font-family: 'SFMono-Regular', Consolas, monospace;
+    }
 
     .risk-high { color: #dc2626; font-weight: 600; }
     .risk-mid  { color: #d97706; font-weight: 600; }
     .risk-low  { color: #15803d; font-weight: 600; }
 
-    @media (max-width: 768px) {
-      .sidebar { display: none; }
-      .main { padding: 32px 20px 80px; }
-      .page-title { font-size: 26px; }
-      .score-grid { grid-template-columns: 1fr 1fr; }
-      .phase-grid { grid-template-columns: 1fr; }
-    }
-
-    /* ── Print / PDF 최적화 ── */
+    /* ═══════════════════
+       인쇄/PDF 전용
+    ═══════════════════ */
     @media print {
-      @page {
-        margin: 20mm 18mm;
-        size: A4;
-      }
+      @page { margin: 18mm 16mm; size: A4; }
 
-      body {
-        font-size: 13px;
-        -webkit-print-color-adjust: exact;
-        print-color-adjust: exact;
-      }
+      body { font-size: 12px; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .main { max-width: 100%; padding: 0; margin: 0; }
 
-      .main {
-        max-width: 100%;
-        padding: 0;
-        margin: 0;
-      }
+      h1, h2, h3 { break-after: avoid; page-break-after: avoid; }
+      h1 + *, h2 + *, h3 + * { break-before: avoid; page-break-before: avoid; }
+      hr { break-after: avoid; page-break-after: avoid; }
 
-      /* 섹션 헤더는 항상 다음 내용과 함께 */
-      h1, h2, h3 {
-        break-after: avoid;
-        page-break-after: avoid;
-      }
+      .section-block,
+      .callout, .input-box, .example-box,
+      .flow, .score-card, .phase-card,
+      .score-grid, .phase-grid,
+      .stack-row, .properties,
+      .notion-table-wrap { break-inside: avoid; page-break-inside: avoid; }
 
-      /* 블록 요소들이 페이지 경계에서 잘리지 않도록 */
-      .callout,
-      .callout.yellow,
-      .callout.blue,
-      .callout.green,
-      .callout.purple,
-      .input-box,
-      .example-box,
-      .stack-pill,
-      .stack-row,
-      .flow,
-      .score-card,
-      .phase-card {
-        break-inside: avoid;
-        page-break-inside: avoid;
-      }
+      table.notion-table, table.notion-table tr { break-inside: avoid; page-break-inside: avoid; }
 
-      /* 테이블 행이 잘리지 않도록 */
-      table.notion-table,
-      .notion-table-wrap {
-        break-inside: avoid;
-        page-break-inside: avoid;
-      }
-
-      table.notion-table tr {
-        break-inside: avoid;
-        page-break-inside: avoid;
-      }
-
-      /* phase 카드 그리드 */
-      .phase-grid {
-        break-inside: avoid;
-        page-break-inside: avoid;
-      }
-
-      /* score 카드 그리드 */
-      .score-grid {
-        break-inside: avoid;
-        page-break-inside: avoid;
-      }
-
-      /* 섹션 전체를 가능하면 같은 페이지에 */
-      h1 + *,
-      h2 + * {
-        break-before: avoid;
-        page-break-before: avoid;
-      }
-
-      /* hr은 페이지 나누기 전에 오지 않도록 */
-      hr {
-        break-after: avoid;
-        page-break-after: avoid;
-      }
-
-      /* 배경색 인쇄 허용 */
+      /* 배경색 인쇄 보장 */
       .callout.yellow { background: #fef9e7 !important; }
       .callout.blue   { background: #e8f4ff !important; }
       .callout.green  { background: #e9f7ef !important; }
       .callout.purple { background: #f3eeff !important; }
       .input-box      { background: #fffbeb !important; }
-      .example-box    { background: #f7f6f3 !important; }
-      .flow           { background: #f7f6f3 !important; }
+      .example-box, .flow { background: #f7f6f3 !important; }
       table.notion-table th { background: #f7f6f3 !important; }
+      .phase-card, .score-card { background: #ffffff !important; }
+      .stack-pill { background: #f7f6f3 !important; }
+    }
+
+    /* ── H1 섹션 묶음: 제목이 단독으로 페이지 하단에 남지 않도록 ── */
+    .h1-section {
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    /* h1-section 내 첫 번째 자식(h1 제목)이 페이지 끝에 오면 다음 페이지로 이동 */
+    .h1-section > h1 {
+      break-after: avoid;
+      page-break-after: avoid;
     }
   </style>
 </head>
 <body>
 <div class="layout">
-
-
-
-<!-- ══════════════════════════════
-     MAIN
-══════════════════════════════ -->
 <main class="main">
 
   <!-- Cover -->
@@ -311,9 +409,7 @@
     </div>
   </div>
 
-  <!-- ══════════════════════════════
-       1. 개요 & 배경
-  ══════════════════════════════ -->
+  <!-- 1. 개요 & 배경 -->
   <h1 id="overview">📋 개요 &amp; 배경</h1>
 
   <div class="callout yellow">
@@ -325,366 +421,378 @@
     </div>
   </div>
 
-  <h2>문제 인식</h2>
-  <p>오늘날 기업과 구성원은 쏟아지는 뉴스·리포트·트렌드 속에서 <strong>"지금 우리가 주목해야 할 변화는 무엇인가?"</strong>를 파악하는 데 많은 시간과 에너지를 소비합니다.</p>
-  <ul class="notion-list">
-    <li>하루에도 수백 건의 산업 뉴스가 발생하지만, 전략적으로 중요한 신호를 골라내는 작업은 여전히 사람이 수동으로 수행</li>
-    <li>감지된 변화 신호를 "우리 조직의 맥락"에 맞게 해석하고 Action Item으로 전환하는 데 전문성과 시간이 필요</li>
-    <li>조직·직군·직종 각 레벨마다 필요한 인사이트 포맷이 달라, 단일 리포트로는 조직 전체를 커버하기 어려움</li>
-  </ul>
+  <div class="section-block">
+    <h2>문제 인식</h2>
+    <p>오늘날 기업과 구성원은 쏟아지는 뉴스·리포트·트렌드 속에서 <strong>"지금 우리가 주목해야 할 변화는 무엇인가?"</strong>를 파악하는 데 많은 시간과 에너지를 소비합니다.</p>
+    <ul class="notion-list">
+      <li>하루에도 수백 건의 산업 뉴스가 발생하지만, 전략적으로 중요한 신호를 골라내는 작업은 여전히 사람이 수동으로 수행</li>
+      <li>감지된 변화 신호를 "우리 조직의 맥락"에 맞게 해석하고 Action Item으로 전환하는 데 전문성과 시간이 필요</li>
+      <li>조직·직군·직종 각 레벨마다 필요한 인사이트 포맷이 달라, 단일 리포트로는 조직 전체를 커버하기 어려움</li>
+    </ul>
+  </div>
 
-  <h2>솔루션 개요 — 3단계 파이프라인</h2>
+  <div class="section-block">
+    <h2>솔루션 개요 — 3단계 파이프라인</h2>
 
-  <div class="callout blue">
-    <div class="callout-icon">①</div>
-    <div class="callout-text">
-      <strong>수집 (Collect)</strong> — 사용자가 정의한 키워드 + 도메인 기반으로 뉴스·리포트 자동 크롤링 &nbsp;<span class="tag tag-orange">n8n</span><br>
-      <div class="input-box" style="margin-top:8px;">
-        → <strong>Input 값:</strong> 키워드, 직군 (ex. 영업직군, 연구개발(R&amp;D)직군, 생산직군, 경영지원직군, IT직군),
-        직종 (기획, 인사, 총무, 회계, 국내영업, 해외영업, 기술영업, 영업기획, 서비스 기획, 프론트엔드 개발, 백엔드 개발, 데이터 엔지니어 등),
-        정기 구독 여부, 이메일 주소
+    <div class="callout blue">
+      <div class="callout-icon">①</div>
+      <div class="callout-text">
+        <strong>수집 (Collect)</strong> — 사용자가 정의한 키워드 + 도메인 기반으로 뉴스·리포트 자동 크롤링 &nbsp;<span class="tag tag-orange">n8n</span><br>
+        <div class="input-box" style="margin-top:8px;">
+          → <strong>Input 값:</strong> 키워드, 직군 (영업/R&amp;D/생산/경영지원/IT 등), 직종 (기획·인사·개발·영업 등), 정기 구독 여부, 이메일
+        </div>
+      </div>
+    </div>
+
+    <div class="callout green">
+      <div class="callout-icon">②</div>
+      <div class="callout-text">
+        <strong>탐지 (Detect)</strong> — 변화 신호 분류, 중요도 스코어링, 트렌드 패턴 추출 &nbsp;<span class="tag tag-green">Dify RAG</span> <span class="tag tag-purple">Claude</span><br>
+        <div class="input-box" style="margin-top:8px;">→ System Prompt 명확하게 작성</div>
+      </div>
+    </div>
+
+    <div class="callout purple">
+      <div class="callout-icon">③</div>
+      <div class="callout-text">
+        <strong>가이드 (Guide)</strong> — 맞춤 전략 액션 제안 &nbsp;<span class="tag tag-orange">n8n</span> <span class="tag tag-green">Dify 챗봇</span>
       </div>
     </div>
   </div>
 
-  <div class="callout green">
-    <div class="callout-icon">②</div>
-    <div class="callout-text">
-      <strong>탐지 (Detect)</strong> — 변화 신호 분류, 중요도 스코어링, 트렌드 패턴 추출 &nbsp;<span class="tag tag-green">Dify RAG</span> <span class="tag tag-purple">Claude</span><br>
-      <div class="input-box" style="margin-top:8px;">→ System Prompt 명확하게 작성</div>
+  <hr>
+
+  <!-- 2. 목표 & 핵심 가치 -->
+  <h1 id="goal" style="page-break-before:always;">🎯 목표 &amp; 핵심 가치</h1>
+
+  <div class="section-block">
+    <h2>프로젝트 목표</h2>
+    <div class="notion-table-wrap">
+      <table class="notion-table table-goal">
+        <thead><tr><th>구분</th><th>목표</th><th>측정 지표</th></tr></thead>
+        <tbody>
+          <tr><td><span class="tag tag-blue">사용성</span></td><td>키워드 설정 후 5분 내 첫 브리핑 수신 가능</td><td>온보딩 소요 시간 ≤ 5분</td></tr>
+          <tr><td><span class="tag tag-green">정확도</span></td><td>신호 탐지 관련성 점수 80% 이상</td><td>사용자 피드백 기반 Relevance Score</td></tr>
+          <tr><td><span class="tag tag-purple">자동화</span></td><td>1회 수동 리서치 + 매일 자동 브리핑</td><td>수동 검색 시간 절감율 ≥ 70%</td></tr>
+          <tr><td><span class="tag tag-orange">사업성</span></td><td>SaaS 모델로 사업화 가능한 프로토타입</td><td>Track 3 심사위원 사업성 점수</td></tr>
+        </tbody>
+      </table>
     </div>
   </div>
 
-  <div class="callout purple">
-    <div class="callout-icon">③</div>
-    <div class="callout-text">
-      <strong>가이드 (Guide)</strong> — 맞춤 전략 액션 제안 &nbsp;<span class="tag tag-orange">n8n</span> <span class="tag tag-green">Dify 챗봇</span>
+  <div class="section-block">
+    <h2>핵심 차별점</h2>
+    <div class="score-grid">
+      <div class="score-card">
+        <div class="score-card-title">맞춤형 신호 탐지</div>
+        <div class="score-card-val">🎯</div>
+        <div class="score-card-sub">범용 뉴스 요약이 아닌, 우리 조직의 키워드·도메인에 특화된 변화 신호 탐지</div>
+      </div>
+      <div class="score-card">
+        <div class="score-card-title">역할 기반 가이드</div>
+        <div class="score-card-val">👤</div>
+        <div class="score-card-sub">직군, 직종에 맞는 인사이트 포맷 &amp; Action Item 자동 생성</div>
+      </div>
+      <div class="score-card">
+        <div class="score-card-title">원하는 방식으로 받는 브리핑</div>
+        <div class="score-card-val">⚡</div>
+        <div class="score-card-sub">1회 검색은 웹에서 즉시 확인, 정기 브리핑은 이메일로 자동 수신</div>
+      </div>
     </div>
   </div>
 
   <hr>
 
-  <!-- ══════════════════════════════
-       2. 목표 & 핵심 가치
-  ══════════════════════════════ -->
-  <h1 id="goal">🎯 목표 &amp; 핵심 가치</h1>
-
-  <h2>프로젝트 목표</h2>
-  <div class="notion-table-wrap">
-    <table class="notion-table">
-      <thead><tr><th>구분</th><th>목표</th><th>측정 지표</th></tr></thead>
-      <tbody>
-        <tr><td><span class="tag tag-blue">사용성</span></td><td>키워드 설정 후 5분 내 첫 브리핑 수신 가능</td><td>온보딩 소요 시간 ≤ 5분</td></tr>
-        <tr><td><span class="tag tag-green">정확도</span></td><td>신호 탐지 관련성 점수 80% 이상</td><td>사용자 피드백 기반 Relevance Score</td></tr>
-        <tr><td><span class="tag tag-purple">자동화</span></td><td>1회 수동 리서치 + 매일 자동 브리핑</td><td>수동 검색 시간 절감율 ≥ 70%</td></tr>
-        <tr><td><span class="tag tag-orange">사업성</span></td><td>SaaS 모델로 사업화 가능한 프로토타입</td><td>Track 3 심사위원 사업성 점수</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <h2>핵심 차별점</h2>
-  <div class="score-grid">
-    <div class="score-card">
-      <div class="score-card-title">맞춤형 신호 탐지</div>
-      <div class="score-card-val">🎯</div>
-      <div class="score-card-sub">범용 뉴스 요약이 아닌, 우리 조직의 키워드·도메인에 특화된 변화 신호 탐지</div>
-    </div>
-    <div class="score-card">
-      <div class="score-card-title">역할 기반 가이드</div>
-      <div class="score-card-val">👤</div>
-      <div class="score-card-sub">직군, 직종에 맞는 인사이트 포맷 &amp; Action Item 자동 생성</div>
-    </div>
-    <div class="score-card">
-      <div class="score-card-title">원하는 방식으로 받는 브리핑</div>
-      <div class="score-card-val">⚡</div>
-      <div class="score-card-sub">1회 검색은 웹에서 즉시 확인, 정기 브리핑은 이메일로 자동 수신</div>
-    </div>
-  </div>
-
-  <hr>
-
-  <!-- ══════════════════════════════
-       3. 타겟
-  ══════════════════════════════ -->
+  <!-- 3. 타겟 -->
   <h1 id="target">👤 타겟</h1>
 
-  <div class="notion-table-wrap">
-    <table class="notion-table">
-      <thead><tr><th>페르소나</th><th>직군 / 직종</th><th>니즈</th><th>사용 방식</th></tr></thead>
-      <tbody>
-        <tr>
-          <td>🏢 <strong>전략 담당자</strong></td>
-          <td>경영지원직군 / 전략기획</td>
-          <td>경쟁사·기술 트렌드를 빠르게 파악해 경영진 보고에 활용</td>
-          <td>주간 브리핑 구독 + 챗봇 질의</td>
-        </tr>
-        <tr>
-          <td>🔬 <strong>기술 리더</strong></td>
-          <td>IT직군 / 백엔드 개발자</td>
-          <td>AI·자동화 등 기술 변화가 우리 시스템에 미치는 영향 분석</td>
-          <td>기술 키워드 맞춤 설정 + 일일 알림</td>
-        </tr>
-        <tr>
-          <td>📊 <strong>세일즈/BD</strong></td>
-          <td>영업직군 / 서비스 기획</td>
-          <td>고객 산업 변화 신호를 포착해 영업 기회 발굴</td>
-          <td>고객사 키워드 모니터링 + 브리핑</td>
-        </tr>
-        <tr>
-          <td>👷 <strong>실무 담당자</strong></td>
-          <td>생산직군 / 영업기획</td>
-          <td>프로젝트와 관련된 시장 변화를 놓치지 않고 대응</td>
-          <td>프로젝트별 키워드 그룹 설정</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div class="callout yellow">
-    <div class="callout-icon">🏢</div>
-    <div class="callout-text">
-      <strong>1차 타겟:</strong> 코코아소프트 내부 — AI팀, RPA팀, 영상제작팀<br>
-      <strong>2차 타겟 (사업화):</strong> 업종·직군에 관계없이, 변화에 앞서 대응하고 싶은 모든 직장인
+  <div class="section-block">
+    <div class="notion-table-wrap">
+      <table class="notion-table table-target">
+        <thead><tr><th>페르소나</th><th>직군 / 직종</th><th>니즈</th><th>사용 방식</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>🏢 <strong>전략 담당자</strong></td>
+            <td>경영지원직군 / 전략기획</td>
+            <td>경쟁사·기술 트렌드를 빠르게 파악해 경영진 보고에 활용</td>
+            <td>주간 브리핑 구독 + 챗봇 질의</td>
+          </tr>
+          <tr>
+            <td>🔬 <strong>기술 리더</strong></td>
+            <td>IT직군 / 백엔드 개발자</td>
+            <td>AI·자동화 등 기술 변화가 우리 시스템에 미치는 영향 분석</td>
+            <td>기술 키워드 맞춤 설정 + 일일 알림</td>
+          </tr>
+          <tr>
+            <td>📊 <strong>세일즈/BD</strong></td>
+            <td>영업직군 / 서비스 기획</td>
+            <td>고객 산업 변화 신호를 포착해 영업 기회 발굴</td>
+            <td>고객사 키워드 모니터링 + 브리핑</td>
+          </tr>
+          <tr>
+            <td>👷 <strong>실무 담당자</strong></td>
+            <td>생산직군 / 영업기획</td>
+            <td>프로젝트와 관련된 시장 변화를 놓치지 않고 대응</td>
+            <td>프로젝트별 키워드 그룹 설정</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-  </div>
 
-  <hr>
-
-  <!-- ══════════════════════════════
-       4. 핵심 기능
-  ══════════════════════════════ -->
-  <h1 id="features">⚙️ 핵심 기능</h1>
-
-  <h2>기능 1 · 키워드 &amp; 도메인 설정 (온보딩)</h2>
-  <ul class="notion-list">
-    <li>사용자가 모니터링할 키워드를 자유 입력 (예: "생성형 AI", "RPA 시장", "자동화 트렌드")</li>
-    <li>직군 (산업 도메인) 선택 (IT/금융/제조/유통 등) 으로 신호 필터링 정밀도 향상</li>
-    <li>직종 설정 → 더 상세한 필터링 및 범위를 좁혀서 정밀도 향상</li>
-    <li>알림 채널 연결: 이메일</li>
-  </ul>
-
-  <h2>기능 2 · 뉴스 &amp; 신호 자동 수집 (n8n 워크플로우)</h2>
-  <ul class="notion-list">
-    <li>n8n 스케줄러: 매일 06:00 자동 실행 → 정기 메일 발송 선택 시</li>
-    <li>수집 소스: RSS 피드 (네이버 뉴스·구글 뉴스), 공개 API, 산업 리포트 사이트 등</li>
-    <li>키워드 매칭 필터링 → 관련 기사만 추출</li>
-    <li>중복 제거 + 신선도 스코어링 (최신 24시간 가중치 부여)</li>
-  </ul>
-
-  <h2>기능 3 · AI 변화 신호 탐지 &amp; 분석 (Claude + Dify)</h2>
-  <ul class="notion-list">
-    <li><strong>신호 분류:</strong> 기술 변화 / 시장 변화 / 규제 변화 / 경쟁 변화 4가지 카테고리</li>
-    <li><strong>중요도 스코어링:</strong> 0–10점 자동 부여 (조직 관련성 × 변화 속도 × 영향 범위)</li>
-    <li><strong>트렌드 패턴 감지:</strong> 동일 주제 기사가 급증하는 "신호 급등" 알림</li>
-
-  </ul>
-
-  <h2>기능 4 · 직종별 전략 가이드 생성 (OpenAI API)</h2>
-  <ul class="notion-list">
-    <li><strong>임원용:</strong> 핵심 신호 Top 3 + 전략적 의사결정 포인트 (1페이지 요약)</li>
-    <li><strong>팀장용:</strong> 팀 업무 관련 신호 + 단기 Action Item 3개 제안</li>
-    <li><strong>실무자용:</strong> 상세 뉴스 + 관련 기술 레퍼런스 링크 + 구체적 To-Do</li>
-  </ul>
-
-  <div class="callout blue">
-    <div class="callout-icon">🔍</div>
-    <div class="callout-text">
-      <strong>키워드 "AI" 검색 시 직군·직종별 가이드 예시</strong>
-      <div class="example-box" style="margin-top:10px;">
-        <div>🏢 <strong>경영지원직군 / 전략기획:</strong> AI 도입 관련 정책·규제 변화 신호 + 경영진 의사결정을 위한 AI 투자 우선순위 포인트 + 조직 리스크 대응 방향</div>
-        <div style="margin-top:6px;">💻 <strong>IT직군 / 백엔드 개발자:</strong> AI 관련 기술 트렌드 신호 (LLM, RAG, Agent 등) + 관련 기술 레퍼런스 링크 + 당장 적용 가능한 학습·실습 To-Do</div>
-        <div style="margin-top:6px;">📣 <strong>영업직군 / 서비스 기획:</strong> AI 기반 서비스 시장 변화 신호 + 고객 니즈 변화에 따른 서비스 방향성 제안 + 단기 Action Item</div>
-        <div style="margin-top:6px;">🏭 <strong>생산직군 / 영업기획:</strong> AI 자동화로 인한 산업 구조 변화 신호 + 영업 전략 조정 포인트 + 실행 우선순위</div>
+    <div class="callout yellow">
+      <div class="callout-icon">🏢</div>
+      <div class="callout-text">
+        <strong>1차 타겟:</strong> 코코아소프트 내부 — AI팀, RPA팀, 영상제작팀<br>
+        <strong>2차 타겟 (사업화):</strong> 업종·직군에 관계없이, 변화에 앞서 대응하고 싶은 모든 직장인
       </div>
-      브리핑 내 <code>💬 AI에게 더 물어보기</code> 버튼 → Dify 챗봇 연결
     </div>
   </div>
 
   <hr>
 
-  <!-- ══════════════════════════════
-       5. 시스템 아키텍처
-  ══════════════════════════════ -->
-  <h1 id="arch">🏗️ 시스템 아키텍처</h1>
+  <!-- 4. 핵심 기능 -->
+  <h1 id="features" style="page-break-before:always;">⚙️ 핵심 기능</h1>
 
-  <div class="flow">
-    외부 뉴스 소스 (RSS · 공개 API · 리포트 사이트)<br>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↓<br>
-    [n8n] 수집 워크플로우 — RSS 크롤링 · 키워드 필터링 · 중복 제거<br>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↓<br>
-    [Dify] RAG / 벡터 DB — 임베딩 저장 · 히스토리 관리<br>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↓<br>
-    [OpenAI API] 신호 분석 — 분류 · 스코어링 · 가이드 생성<br>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↓<br>
-    [n8n] 발송 워크플로우 — 직종별 분기 · 포맷 생성<br>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↓<br>
-    사용자 (이메일 · 웹 UI)
+  <div class="section-block">
+    <h2>기능 1 · 키워드 &amp; 도메인 설정 (온보딩)</h2>
+    <ul class="notion-list">
+      <li>사용자가 모니터링할 키워드를 자유 입력 (예: "생성형 AI", "RPA 시장", "자동화 트렌드")</li>
+      <li>직군 (산업 도메인) 선택 (IT/금융/제조/유통 등) 으로 신호 필터링 정밀도 향상</li>
+      <li>직종 설정 → 더 상세한 필터링 및 범위를 좁혀서 정밀도 향상</li>
+      <li>알림 채널 연결: 이메일</li>
+    </ul>
   </div>
 
-  <h2>레이어별 구성</h2>
-  <div class="notion-table-wrap">
-    <table class="notion-table">
-      <thead><tr><th>레이어</th><th>구성 요소</th><th>역할</th></tr></thead>
-      <tbody>
-        <tr><td><span class="tag tag-orange">수집</span></td><td>n8n (RSS 노드, HTTP 노드)</td><td>외부 뉴스/RSS 크롤링, 키워드 필터링, 중복 제거</td></tr>
-        <tr><td><span class="tag tag-green">저장/검색</span></td><td>Dify Knowledge Base (벡터 DB)</td><td>뉴스 임베딩 저장, 유사도 검색, 히스토리 관리</td></tr>
-        <tr><td><span class="tag tag-purple">AI 추론</span></td><td>OpenAI API</td><td>신호 분류, 중요도 스코어링, 전략 가이드 생성</td></tr>
-        <tr><td><span class="tag tag-orange">발송/연동</span></td><td>n8n (이메일 발송)</td><td>직종별 브리핑 자동 발송</td></tr>
-        <tr><td><span class="tag tag-gray">웹 UI</span></td><td>Claude Code 생성 경량 대시보드</td><td>키워드 설정, 브리핑 조회, 피드백 수집</td></tr>
-      </tbody>
-    </table>
+  <div class="section-block">
+    <h2>기능 2 · 뉴스 &amp; 신호 자동 수집 (n8n 워크플로우)</h2>
+    <ul class="notion-list">
+      <li>n8n 스케줄러: 매일 06:00 자동 실행 → 정기 메일 발송 선택 시</li>
+      <li>수집 소스: RSS 피드 (네이버 뉴스·구글 뉴스), 공개 API, 산업 리포트 사이트 등</li>
+      <li>키워드 매칭 필터링 → 관련 기사만 추출</li>
+      <li>중복 제거 + 신선도 스코어링 (최신 24시간 가중치 부여)</li>
+    </ul>
   </div>
 
-  <h2>n8n 주요 워크플로우</h2>
-  <div class="notion-table-wrap">
-    <table class="notion-table">
-      <thead><tr><th>워크플로우</th><th>트리거</th><th>주요 노드</th></tr></thead>
-      <tbody>
-        <tr><td>🔍 뉴스 수집 파이프라인</td><td>실시간 or 매일 06:00 (Cron)</td><td>RSS Read → Filter → Dedup → Dify API 저장</td></tr>
-        <tr><td>🧠 신호 분석 파이프라인</td><td>수집 완료 시 자동 트리거</td><td>Dify RAG 조회 → Claude API 분석 → DB 저장</td></tr>
-        <tr><td>📨 브리핑 발송 파이프라인</td><td>매일 08:00 (Cron)</td><td>직종별 분기 → 포맷 생성 → Email 발송</td></tr>
-      </tbody>
-    </table>
+  <div class="section-block">
+    <h2>기능 3 · AI 변화 신호 탐지 &amp; 분석 (Claude + Dify)</h2>
+    <ul class="notion-list">
+      <li><strong>신호 분류:</strong> 기술 변화 / 시장 변화 / 규제 변화 / 경쟁 변화 4가지 카테고리</li>
+      <li><strong>중요도 스코어링:</strong> 0–10점 자동 부여 (조직 관련성 × 변화 속도 × 영향 범위)</li>
+      <li><strong>트렌드 패턴 감지:</strong> 동일 주제 기사가 급증하는 "신호 급등" 알림</li>
+    </ul>
+  </div>
+
+  <div class="section-block">
+    <h2>기능 4 · 직종별 전략 가이드 생성</h2>
+    <ul class="notion-list">
+      <li><strong>임원용:</strong> 핵심 신호 Top 3 + 전략적 의사결정 포인트 (1페이지 요약)</li>
+      <li><strong>팀장용:</strong> 팀 업무 관련 신호 + 단기 Action Item 3개 제안</li>
+      <li><strong>실무자용:</strong> 상세 뉴스 + 관련 기술 레퍼런스 링크 + 구체적 To-Do</li>
+    </ul>
+
+    <div class="callout blue">
+      <div class="callout-icon">🔍</div>
+      <div class="callout-text">
+        <strong>키워드 "AI" 검색 시 직군·직종별 가이드 예시</strong>
+        <div class="example-box" style="margin-top:8px;">
+          <div>🏢 <strong>경영지원직군 / 전략기획:</strong> AI 도입 관련 정책·규제 변화 신호 + 경영진 의사결정을 위한 AI 투자 우선순위 포인트 + 조직 리스크 대응 방향</div>
+          <div style="margin-top:5px;">💻 <strong>IT직군 / 백엔드 개발자:</strong> AI 관련 기술 트렌드 신호 (LLM, RAG, Agent 등) + 관련 기술 레퍼런스 링크 + 당장 적용 가능한 학습·실습 To-Do</div>
+          <div style="margin-top:5px;">📣 <strong>영업직군 / 서비스 기획:</strong> AI 기반 서비스 시장 변화 신호 + 고객 니즈 변화에 따른 서비스 방향성 제안 + 단기 Action Item</div>
+          <div style="margin-top:5px;">🏭 <strong>생산직군 / 영업기획:</strong> AI 자동화로 인한 산업 구조 변화 신호 + 영업 전략 조정 포인트 + 실행 우선순위</div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <hr>
 
-  <!-- ══════════════════════════════
-       6. 기술 스택
-  ══════════════════════════════ -->
+  <!-- 5. 시스템 아키텍처 -->
+  <h1 id="arch" style="page-break-before:always;">🏗️ 시스템 아키텍처</h1>
+
+  <div class="section-block">
+    <div class="flow">
+      외부 뉴스 소스 (RSS · 공개 API · 리포트 사이트)<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↓<br>
+      [n8n] 수집 워크플로우 — RSS 크롤링 · 키워드 필터링 · 중복 제거<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↓<br>
+      [Dify] RAG / 벡터 DB — 임베딩 저장 · 히스토리 관리<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↓<br>
+      [Claude API] 신호 분석 — 분류 · 스코어링 · 가이드 생성<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↓<br>
+      [n8n] 발송 워크플로우 — 직종별 분기 · 포맷 생성<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↓<br>
+      사용자 (이메일 · 웹 UI)
+    </div>
+  </div>
+
+  <div class="section-block">
+    <h2>레이어별 구성</h2>
+    <div class="notion-table-wrap">
+      <table class="notion-table table-arch">
+        <thead><tr><th>레이어</th><th>구성 요소</th><th>역할</th></tr></thead>
+        <tbody>
+          <tr><td><span class="tag tag-orange">수집</span></td><td>n8n (RSS 노드, HTTP 노드)</td><td>외부 뉴스/RSS 크롤링, 키워드 필터링, 중복 제거</td></tr>
+          <tr><td><span class="tag tag-green">저장/검색</span></td><td>Dify Knowledge Base (벡터 DB)</td><td>뉴스 임베딩 저장, 유사도 검색, 히스토리 관리</td></tr>
+          <tr><td><span class="tag tag-purple">AI 추론</span></td><td>Claude API</td><td>신호 분류, 중요도 스코어링, 전략 가이드 생성</td></tr>
+          <tr><td><span class="tag tag-orange">발송/연동</span></td><td>n8n (이메일 발송)</td><td>직종별 브리핑 자동 발송</td></tr>
+          <tr><td><span class="tag tag-gray">웹 UI</span></td><td>Claude Code 생성 경량 대시보드</td><td>키워드 설정, 브리핑 조회, 피드백 수집</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section-block">
+    <h2>n8n 주요 워크플로우</h2>
+    <div class="notion-table-wrap">
+      <table class="notion-table table-workflow">
+        <thead><tr><th>워크플로우</th><th>트리거</th><th>주요 노드</th></tr></thead>
+        <tbody>
+          <tr><td>🔍 뉴스 수집 파이프라인</td><td>실시간 or 매일 06:00 (Cron)</td><td>RSS Read → Filter → Dedup → Dify API 저장</td></tr>
+          <tr><td>🧠 신호 분석 파이프라인</td><td>수집 완료 시 자동 트리거</td><td>Dify RAG 조회 → Claude API 분석 → DB 저장</td></tr>
+          <tr><td>📨 브리핑 발송 파이프라인</td><td>매일 08:00 (Cron)</td><td>직종별 분기 → 포맷 생성 → Email 발송</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- 6. 기술 스택 -->
   <h1 id="stack">🛠️ 기술 스택</h1>
 
-  <div class="stack-row">
-    <div class="stack-pill">⚙️ n8n — 워크플로우 자동화</div>
-    <div class="stack-pill">🤖 Dify — RAG 챗봇 &amp; Knowledge Base</div>
-    <div class="stack-pill">🧠 OpenAI API — AI 추론/생성</div>
-    <div class="stack-pill">💻 Claude Code — 웹UI &amp; 스크립트</div>
-    <div class="stack-pill">📬 n8n — 브리핑 발송</div>
-  </div>
+  <div class="section-block">
+    <div class="stack-row">
+      <div class="stack-pill">⚙️ n8n — 워크플로우 자동화</div>
+      <div class="stack-pill">🤖 Dify — RAG 챗봇 &amp; Knowledge Base</div>
+      <div class="stack-pill">🧠 Claude API — AI 추론/생성</div>
+      <div class="stack-pill">💻 Claude Code — 웹UI &amp; 스크립트</div>
+      <div class="stack-pill">📬 n8n — 브리핑 발송</div>
+    </div>
 
-  <div class="notion-table-wrap">
-    <table class="notion-table">
-      <thead><tr><th>도구</th><th>활용 목적</th><th>난이도</th><th>비고</th></tr></thead>
-      <tbody>
-        <tr><td><strong>n8n</strong></td><td>뉴스 수집, 브리핑 발송, 파이프라인 오케스트레이션</td><td><span class="tag tag-green">낮음</span></td><td>노코드, 핵심 허브</td></tr>
-        <tr><td><strong>Dify</strong></td><td>RAG Knowledge Base, 대화형 챗봇</td><td><span class="tag tag-blue">중간</span></td><td>임베딩 모델 설정 필요</td></tr>
-        <tr><td><strong>OpenAI API</strong></td><td>신호 분류·스코어링, 가이드 텍스트 생성</td><td><span class="tag tag-green">낮음</span></td><td>프롬프트 설계 중요</td></tr>
-        <tr><td><strong>Claude Code</strong></td><td>웹 대시보드 빠른 개발</td><td><span class="tag tag-blue">중간</span></td><td>MCP 연동으로 n8n/Dify 제어</td></tr>
-      </tbody>
-    </table>
+    <div class="notion-table-wrap">
+      <table class="notion-table table-stack">
+        <thead><tr><th>도구</th><th>활용 목적</th><th>난이도</th><th>비고</th></tr></thead>
+        <tbody>
+          <tr><td><strong>n8n</strong></td><td>뉴스 수집, 브리핑 발송, 파이프라인 오케스트레이션</td><td><span class="tag tag-green">낮음</span></td><td>노코드, 핵심 허브</td></tr>
+          <tr><td><strong>Dify</strong></td><td>RAG Knowledge Base, 대화형 챗봇</td><td><span class="tag tag-blue">중간</span></td><td>임베딩 모델 설정 필요</td></tr>
+          <tr><td><strong>Claude API</strong></td><td>신호 분류·스코어링, 가이드 텍스트 생성</td><td><span class="tag tag-green">낮음</span></td><td>프롬프트 설계 중요</td></tr>
+          <tr><td><strong>Claude Code</strong></td><td>웹 대시보드 빠른 개발</td><td><span class="tag tag-blue">중간</span></td><td>MCP 연동으로 n8n/Dify 제어</td></tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 
   <hr>
 
-  <!-- ══════════════════════════════
-       7. 일정
-  ══════════════════════════════ -->
-  <h1 id="schedule">📅 일정 (8주 플랜)</h1>
+  <!-- 7. 일정 -->
+  <h1 id="schedule" style="page-break-before:always;">📅 일정 (8주 플랜)</h1>
 
-  <div class="phase-grid">
-    <div class="phase-card">
-      <div class="phase-card-title">🟡 Phase 1 · 기초학습</div>
-      <div class="phase-card-date">2/20 — 3/8 (2주)</div>
-      <ul class="notion-list">
-        <li class="check">팀 구성 완료</li>
-        <li class="check">Track 3 선택</li>
-        <li class="check">n8n / Dify 기초 학습</li>
-        <li class="check">아이디어 구체화</li>
-      </ul>
-    </div>
-    <div class="phase-card">
-      <div class="phase-card-title">🔵 Phase 2 · 메이킹</div>
-      <div class="phase-card-date">3/9 — 4/10 (5주)</div>
-      <ul class="notion-list">
-        <li>3주차: 기획서 제출 ← <strong>현재</strong></li>
-        <li>4주차: 환경 세팅</li>
-        <li>5주차: 핵심 프로토타입</li>
-        <li>6주차: 고도화 &amp; UI/UX</li>
-        <li>7주차: 통합 테스트 &amp; PPT</li>
-      </ul>
-    </div>
-    <div class="phase-card">
-      <div class="phase-card-title">🔴 Phase 3 · 쇼케이스</div>
-      <div class="phase-card-date">4/13 — 4/18 (1주)</div>
-      <ul class="notion-list">
-        <li>8주차: 최종 리허설</li>
-        <li>데모 영상 녹화 (4/8)</li>
-        <li>온라인 쇼케이스 (4/18)</li>
-        <li>Q&amp;A + 시상식</li>
-      </ul>
+  <div class="section-block">
+    <div class="phase-grid">
+      <div class="phase-card">
+        <div class="phase-card-title">🟡 Phase 1 · 기초학습</div>
+        <div class="phase-card-date">2/20 — 3/8 (2주)</div>
+        <ul class="notion-list">
+          <li class="check">팀 구성 완료</li>
+          <li class="check">Track 3 선택</li>
+          <li class="check">n8n / Dify 기초 학습</li>
+          <li class="check">아이디어 구체화</li>
+        </ul>
+      </div>
+      <div class="phase-card">
+        <div class="phase-card-title">🔵 Phase 2 · 메이킹</div>
+        <div class="phase-card-date">3/9 — 4/10 (5주)</div>
+        <ul class="notion-list">
+          <li>3주차: 기획서 제출 ← <strong>현재</strong></li>
+          <li>4주차: 환경 세팅</li>
+          <li>5주차: 핵심 프로토타입</li>
+          <li>6주차: 고도화 &amp; UI/UX</li>
+          <li>7주차: 통합 테스트 &amp; PPT</li>
+        </ul>
+      </div>
+      <div class="phase-card">
+        <div class="phase-card-title">🔴 Phase 3 · 쇼케이스</div>
+        <div class="phase-card-date">4/13 — 4/18 (1주)</div>
+        <ul class="notion-list">
+          <li>8주차: 최종 리허설</li>
+          <li>데모 영상 녹화 (4/8)</li>
+          <li>온라인 쇼케이스 (4/18)</li>
+          <li>Q&amp;A + 시상식</li>
+        </ul>
+      </div>
     </div>
   </div>
 
-  <h2>주차별 상세 계획</h2>
-  <div class="notion-table-wrap">
-    <table class="notion-table">
-      <thead><tr><th>주차</th><th>기간</th><th>목표</th><th>세부 태스크</th><th>담당</th></tr></thead>
-      <tbody>
-        <tr style="background:#fffbeb;">
-          <td><strong>3주차 ⭐</strong></td><td>3/9~3/13</td><td>기획서 제출</td><td>기획서 작성, 피드백 반영, 제출</td><td>팀 전체</td>
-        </tr>
-        <tr>
-          <td>4주차</td><td>3/16~3/20</td><td>환경 세팅</td>
-          <td>n8n RSS 노드 테스트, Dify Knowledge Base 테스트, Claude API 테스트, 웹UI 스켈레톤</td>
-          <td>개발 / 기획</td>
-        </tr>
-        <tr>
-          <td>5주차</td><td>3/23~3/27</td><td>핵심 프로토타입</td>
-          <td>뉴스 수집 워크플로우 완성, AI 프롬프트 튜닝, 메일 발송 테스트</td>
-          <td>개발 / 기획</td>
-        </tr>
-        <tr>
-          <td>6주차</td><td>3/30~4/3</td><td>기능 고도화</td>
-          <td>직종별 브리핑 포맷 완성, 웹 대시보드 UI/UX, 멘토링 피드백 반영</td>
-          <td>팀 전체</td>
-        </tr>
-        <tr>
-          <td>7주차</td><td>4/6~4/10</td><td>통합 테스트</td>
-          <td>E2E 테스트, 버그 수정, 데모 시나리오 확정, PPT 초안, 데모 영상 준비</td>
-          <td>팀 전체</td>
-        </tr>
-        <tr>
-          <td>8주차</td><td>4/13~4/17</td><td>최종 준비</td>
-          <td>데모 영상 최종 녹화(4/8), PPT 완성, 리허설 2회, 쇼케이스 준비</td>
-          <td>팀 전체</td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="section-block">
+    <h2>주차별 상세 계획</h2>
+    <div class="notion-table-wrap">
+      <table class="notion-table table-schedule">
+        <thead><tr><th>주차</th><th>기간</th><th>목표</th><th>세부 태스크</th><th>담당</th></tr></thead>
+        <tbody>
+          <tr style="background:#fffbeb;">
+            <td><strong>3주차 ⭐</strong></td><td>3/9~3/13</td><td>기획서 제출</td><td>기획서 작성, 피드백 반영, 제출</td><td>팀 전체</td>
+          </tr>
+          <tr>
+            <td>4주차</td><td>3/16~3/20</td><td>환경 세팅</td>
+            <td>n8n RSS 노드 테스트, Dify Knowledge Base 테스트, Claude API 테스트, 웹UI 스켈레톤</td>
+            <td>개발 / 기획</td>
+          </tr>
+          <tr>
+            <td>5주차</td><td>3/23~3/27</td><td>핵심 프로토타입</td>
+            <td>뉴스 수집 워크플로우 완성, AI 프롬프트 튜닝, 메일 발송 테스트</td>
+            <td>개발 / 기획</td>
+          </tr>
+          <tr>
+            <td>6주차</td><td>3/30~4/3</td><td>기능 고도화</td>
+            <td>직종별 브리핑 포맷 완성, 웹 대시보드 UI/UX, 멘토링 피드백 반영</td>
+            <td>팀 전체</td>
+          </tr>
+          <tr>
+            <td>7주차</td><td>4/6~4/10</td><td>통합 테스트</td>
+            <td>E2E 테스트, 버그 수정, 데모 시나리오 확정, PPT 초안, 데모 영상 준비</td>
+            <td>팀 전체</td>
+          </tr>
+          <tr>
+            <td>8주차</td><td>4/13~4/17</td><td>최종 준비</td>
+            <td>데모 영상 최종 녹화(4/8), PPT 완성, 리허설 2회, 쇼케이스 준비</td>
+            <td>팀 전체</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 
   <hr>
 
-  <!-- ══════════════════════════════
-       8. 역할 분담
-  ══════════════════════════════ -->
+  <!-- 8. 역할 분담 -->
   <h1 id="role">👥 역할 분담</h1>
 
-  <div class="notion-table-wrap">
-    <table class="notion-table">
-      <thead><tr><th>구분</th><th>역할</th><th>주요 책임 영역</th></tr></thead>
-      <tbody>
-        <tr>
-          <td>👤 <strong>김규현</strong></td>
-          <td>워크플로우 &amp; UX</td>
-          <td>n8n 워크플로우 설계·구현, 이메일 발송 연동, 사용자 시나리오 설계, Claude Code 웹UI 개발</td>
-        </tr>
-        <tr>
-          <td>👤 <strong>김수민</strong></td>
-          <td>AI 파이프라인 &amp; 프롬프트</td>
-          <td>Open AI API 프롬프트 설계, Dify RAG 구성, 신호 분류 로직, PPT 제작</td>
-        </tr>
-        <tr>
-          <td>🤝 <strong>공동</strong></td>
-          <td>기획 &amp; 테스트</td>
-          <td>요구사항 정의, 기획서 작성, 사용자 테스트, 데모 시나리오 리허설</td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="section-block">
+    <div class="notion-table-wrap">
+      <table class="notion-table table-role">
+        <thead><tr><th>구분</th><th>역할</th><th>주요 책임 영역</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>👤 <strong>김규현</strong></td>
+            <td>워크플로우 &amp; UX</td>
+            <td>n8n 워크플로우 설계·구현, 이메일 발송 연동, 사용자 시나리오 설계, Claude Code 웹UI 개발</td>
+          </tr>
+          <tr>
+            <td>👤 <strong>김수민</strong></td>
+            <td>AI 파이프라인 &amp; 프롬프트</td>
+            <td>Claude API 프롬프트 설계, Dify RAG 구성, 신호 분류 로직, PPT 제작</td>
+          </tr>
+          <tr>
+            <td>🤝 <strong>공동</strong></td>
+            <td>기획 &amp; 테스트</td>
+            <td>요구사항 정의, 기획서 작성, 사용자 테스트, 데모 시나리오 리허설</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 
-  <hr>
-
-  <p style="margin-top:48px; font-size:12px; color:var(--text-faint); text-align:center;">
+  <p style="margin-top:48px; font-size:11px; color:var(--text-faint); text-align:center;">
     코코아소프트 AX 챌린지 2026 · Track 3 · Signal Compass 팀 · 기획서 v1.0
   </p>
 
